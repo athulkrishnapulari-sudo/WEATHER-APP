@@ -1,0 +1,291 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, #7fbaff, #ae7cff);
+}
+a{
+  text-decoration: none;
+  color:white;
+}
+
+
+/* POPUP */
+.popup_main {
+  position: absolute;
+  transform-origin: center;
+  width: 100%;
+  height: 100vh;
+  display: none;
+
+}
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  width: clamp(200px, 90%, 350px);
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 20px;
+  padding: 20px;
+  color: white;
+}
+.popup form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.popup form h2 {
+  text-align: center;
+}
+.popup form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(55, 54, 54);
+  border-radius: 20px;
+  width: 100%;
+}
+.popup form button {
+  all: unset;
+  cursor: pointer;
+  width: 50%;
+  padding: 12px 20px;
+  text-align: center;
+  border-radius: 12px;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+.popup form button:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+
+
+/* nav bar  */
+
+.nav_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+
+.search_bar{
+    position: relative;
+}
+.search_bar svg{
+    width:20px;
+    height:20px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.search_bar svg path{
+    fill: white;
+}
+.search_bar input{
+    height:45px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(55, 54, 54);
+    border-radius: 20px;
+    width: 300px;
+    text-align: center;
+    background-color: black;
+    opacity: 0.2;
+    font-size: 22px;
+    color:white;
+}
+.search_bar input::placeholder{
+    color: rgb(254, 254, 254);
+
+}
+.nav_container button,.hamburger_btn{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.hamburger_btn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.1px;
+    background:black;
+    opacity: 0.3;
+}
+.hamburger_btn div{
+    width: 25px;
+    height: 4px;
+    background:white;
+    margin: 3px 0;
+    border-radius: 5px;
+}
+.profile-container {
+    position: relative;
+    font-family: sans-serif;
+}
+
+.profile-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+    margin: 0.4rem;
+    border:1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.profile_menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    max-width: 45px; 
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    border-radius: 25px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10;
+    
+    /* Keep transitions the same */
+    transition: 
+        opacity 0.2s ease,
+        width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+        max-width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+        height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+        border-radius 0.4s ease;
+}
+
+.profile_menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    /* width and max-width are now handled by JS */
+    height: 240px; 
+    border-radius: 15px;
+    border-top-left-radius: 25px;
+}
+
+.username-bar {
+    height: 45px;
+    display: inline-flex; /* Changed to inline-flex to shrink-wrap the name */
+    align-items: center;
+    padding-left: 65px;
+    padding-right: 20px;
+    margin-top: 0.4rem;
+    white-space: nowrap; /* Prevents name from wrapping to a new line */
+}
+
+.username {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0;
+    /* Delays text appearance until the bar has grown wide enough */
+    transition: opacity 0.2s ease 0.2s;
+}
+
+.profile_menu.active .username {
+    opacity: 1;
+}
+
+.menu-links {
+    padding: 30px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s ease 0.2s;
+}
+
+.profile_menu.active .menu-links {
+    opacity: 1;
+}
+
+.menu-item {
+    cursor: pointer;
+    font-size: 16px;
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+
+.menu-item:hover {
+    color: #ddd;
+}
+
+.hamburger_menu{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESPONSIVE NESS */
+
+@media (max-width: 600px) {
+    .nav_container{
+        padding: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .search_bar input{
+        width: 230px;
+    }
+    .nav_container button,.hamburger_btn{
+    width: 45px;
+    height: 45px;
+    
+}
+}
