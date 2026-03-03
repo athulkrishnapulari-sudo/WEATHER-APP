@@ -1,0 +1,675 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, #7fbaff, #ae7cff);
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+li{
+  margin:10px;
+}
+
+/* POPUP */
+.popup_main {
+  position: absolute;
+  transform-origin: center;
+  width: 100%;
+  height: 100vh;
+  display: none;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(200px, 90%, 350px);
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 20px;
+  padding: 20px;
+  color: white;
+}
+
+.popup form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.popup form h2 {
+  text-align: center;
+}
+
+.popup form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(139, 132, 132);
+  color: white;
+  background-color: rgb(0, 0, 0, 0.2);
+  border-radius: 20px;
+  width: 100% !important;
+}
+
+.popup form input::placeholder {
+  color: rgb(255, 255, 255);
+  opacity: 0.7;
+}
+
+.popup form button {
+  all: unset;
+  cursor: pointer;
+  width: 50%;
+  padding: 12px 20px;
+  text-align: center;
+  border-radius: 12px;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.popup form button:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Avatar preview inside popups */
+.avatar-preview {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.avatar-preview img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  z-index: 10000;
+}
+
+.popup input[type="file"] {
+  margin-top: 8px;
+  color: white;
+}
+
+/* nav bar  */
+
+.nav_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.search_bar {
+  position: relative;
+}
+
+.search_bar svg {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search_bar svg path {
+  fill: white;
+}
+
+.search_bar input {
+  height: 45px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(55, 54, 54);
+  border-radius: 30px !important;
+  width: 300px;
+  text-align: center;
+  background-color: rgb(0, 0, 0, 0.7);
+  font-size: 22px;
+  color: white;
+}
+
+.search_bar input::placeholder {
+  color: rgb(254, 254, 254);
+}
+
+.nav_container button,
+.hamburger_btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hamburger_btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 6px;
+}
+
+.hamburger_btn div {
+  width: 22px;
+  height: 2.8px;
+  background: white;
+  margin: 3px 0;
+  border-radius: 3px;
+  transition: transform 220ms cubic-bezier(0.2,0,0,1), opacity 160ms ease;
+  transform-origin: center;
+}
+
+
+
+.profile-container {
+  position: relative;
+  font-family: sans-serif;
+}
+
+.profile-icon {
+  /* hide underlying SVG to prevent overlap with avatar image */
+  display: none;
+}
+
+/* avatar used as the profile button */
+.profile-avatar-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: auto;
+  z-index: 10000;
+}
+
+.profile-container .profile-avatar-btn {
+  z-index: 25;
+}
+
+.profile_menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45px;
+  height: 45px;
+  max-width: 45px;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  border-radius: 25px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+
+  /* Keep transitions the same */
+  transition:
+    opacity 0.2s ease,
+    width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    max-width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    border-radius 0.4s ease;
+}
+
+.profile_menu.active {
+  opacity: 1;
+  pointer-events: auto;
+  /* width and max-width are now handled by JS */
+  height: auto;
+  border-radius: 15px;
+  border-top-left-radius: 25px;
+}
+
+.username-bar {
+  height: 45px;
+  display: inline-flex;
+  /* Changed to inline-flex to shrink-wrap the name */
+  align-items: center;
+  padding-left: 60px;
+  padding-right: 10px;
+  margin-top: 0.4rem;
+  white-space: nowrap;
+  /* Prevents name from wrapping to a new line */
+}
+
+.username {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  white-space: nowrap;
+  opacity: 0;
+  /* Delays text appearance until the bar has grown wide enough */
+  transition: opacity 0.2s ease 0.2s;
+}
+
+/* avatar used as profile button */
+.profile-avatar-btn {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  display: block;
+  z-index: 10000;
+}
+
+.profile_menu.active .username {
+  opacity: 1;
+}
+
+.menu-links {
+  padding: 30px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.2s ease 0.2s;
+}
+
+.profile_menu.active .menu-links {
+  opacity: 1;
+}
+
+.menu-item {
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.menu-item:hover {
+  color: #ddd;
+}
+
+
+
+/* RESPONSIVE NESS */
+
+@media (max-width: 600px) {
+  .nav_container {
+    padding: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .search_bar input {
+    width: 230px;
+  }
+
+  .nav_container button,
+  .hamburger_btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.settings {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  /* layout kept; visibility controlled by opacity/visibility */
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.settings.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* pop animation for the settings card */
+.settings-page {
+  transform: translateY(10px) scale(0.995);
+  transition:
+    transform 260ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 260ms ease;
+}
+
+.settings.open .settings-page {
+  transform: translateY(0) scale(1);
+}
+
+.settings-page {
+  display: flex;
+  width: 70%;
+  min-height: 70vh;
+  background: rgba(255, 255, 255, 0.1);
+  /* Match your glassmorphism vibe */
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 20px;
+  overflow: hidden;
+  color: white;
+}
+
+.settings-sidebar {
+  width: 250px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 30px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item:first-child {
+  margin-top: 20px;
+}
+
+.nav-item {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.settings-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.settings-content section {
+  display: none;
+}
+
+.settings-content section.active {
+  display: block;
+}
+
+.setting-group {
+  margin-bottom: 25px;
+}
+
+.setting-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+}
+
+.save-btn {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.color-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+.color-dot.red {
+  background: #e66;
+}
+
+.color-dot.blue {
+  background: #4a90e2;
+}
+
+.color-dot.dark {
+  background: #333;
+}
+
+/* Settings close button */
+.settings-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.settings-close:hover {
+  background: #ff0202ec;
+}
+
+.menu{
+  position: absolute;
+  right: 0;
+  top: 0;
+  min-width: 160px;
+  width: max-content;
+  background: rgba(0, 0, 0, 0.22);
+  color: white;
+  border-radius: 12px;
+  padding: 6px 8px;
+  opacity: 0;
+  transform: scale(0.99);
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms cubic-bezier(0.2,0,0,1);
+  z-index: 1000;
+  border-top-right-radius: 25px;
+  padding-top: 60px;
+  transition: all 0.2s ease;
+}
+.hamburger-container {
+  position: relative;
+  font-family: sans-serif;
+}
+
+.profile-icon {
+  /* hide underlying SVG to prevent overlap with avatar image */
+  display: none;
+}
+
+/* avatar used as the profile button */
+.hamburger-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: auto;
+
+}
+
+.profile-container .profile-avatar-btn {
+  z-index: 25;
+}
+
+.menu li { list-style: none; }
+.menu li a { display: block; padding: 10px 12px; color: white; text-decoration: none; border-radius: 8px; transition: background 140ms ease; }
+.menu li a:hover { background: rgba(255,255,255,0.04); }
+
+.menu.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform:  scale(1);
+}
+
+
+
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styling the active <li> in the hamburger menu */
+.menu li a.active {
+    color: #87bdf6; /* Change to your theme color */
+    font-weight: bold;
+    background-color: rgba(0, 123, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Ensure the active section is visible */
+
+/* The Nav Link highlight */
+
+
+/* The Section Management */
+.main-section{
+  display: none;
+}
+/* Hide sections by default, show when active */
+.content-section {
+  display: none;
+}
+.content-section.active {
+  display: block;
+}
+
+/* Mobile Menu Positioning (Example) */
+@media (max-width: 768px) {
+  .menu {
+    display: none; /* Hidden state */
+    position: absolute;
+    /* add your positioning styles here */
+  }
+  
+  /* When the container has the .active class, show the menu */
+  .hamburger_menu.active .menu {
+    display: block;
+  }
+}
+.hamburger_menu.active .menu {
+    display: block;
+  }
+
+
+
+.content-section{
+  width:100%;
+  padding:2rem;
+  }
+.top-bar{
+  width:100%;
+  display: flex;
+  align-items: center;
+  gap:20px;
+  justify-content: space-around;
+}
+.left-content h2{
+  font-size:42px;
+  color:white;
+}
+.middle-content h2{
+  font-size:42px;
+  color:white;
+}
+.right-content h2{
+  font-size:119px;
+  color:white;
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .left-content h2,
+  .middle-content h2
+   {
+    font-size: clamp(20px, 4vw, 28px);
+  }
+  .right-content h2 {
+    font-size: clamp(40px, 8vw, 72px);
+  }
+}
